@@ -9,13 +9,13 @@ import SwiftUI
 
 struct CurrencyBarView: View {
     var body: some View {
-        
+        @ObservedObject var viewModel = CurrencyViewModel()
         
         ZStack {
             // Content view
             VStack{
                 HStack{//Main
-                    Text("EUR").padding(5)
+                    Image(systemName: "eurosign").padding(5)
                     Spacer()
                     Text("10").padding(5)
                 }
@@ -25,25 +25,36 @@ struct CurrencyBarView: View {
                 
                 
                 HStack{
-                    Text("USD")
+                    Image(systemName: "dollarsign").padding(5)
                     Spacer()
                     Text("10")
                 }
                 HStack{
-                    Text("TRY")
+                    Image(systemName: "turkishlirasign").padding(5)
                     Spacer()
                     Text("10")
                 }
                 HStack{
-                    Text("RUB")
+                    Image(systemName: "rublesign").padding(5)
                     Spacer()
                     Text("10")
                 }
+                
+                //Refresh Button
+                Button {
+                    viewModel.fetchCurrencyData(currencies: ["USD","TRY","RUB"])
+                } label: {
+                    Text("Refresh").frame(width: 100).foregroundColor(.green)
+                }
+                
+                
+                //QUIT Button
                 Button {
                     NSApplication.shared.terminate(nil)
                 } label: {
                     Text("Quit").frame(width: 100)
                 }
+                
             }.frame(width: 100).padding(15)
                 .background(
                     // Glass morphism background. Linear gradient from white to white
@@ -51,8 +62,8 @@ struct CurrencyBarView: View {
                         .fill(
                             LinearGradient(
                                 gradient: Gradient(stops: [
-                                    .init(color: Color.white.opacity(0.05), location: 0.0),
-                                    .init(color: Color.white.opacity(0.1), location: 1.0)
+                                    .init(color: Color.white.opacity(0.08), location: 0.0),
+                                    .init(color: Color.white.opacity(0.18), location: 1.0)
                                 ]),
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing

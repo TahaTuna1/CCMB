@@ -11,6 +11,8 @@
 		552F616B29F1F09700FFBAE1 /* CurrencyBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */; };
 		552F616D29F1F09900FFBAE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552F616C29F1F09900FFBAE1 /* Assets.xcassets */; };
 		552F617029F1F09900FFBAE1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552F616F29F1F09900FFBAE1 /* Preview Assets.xcassets */; };
+		552F617C29F1FF2300FFBAE1 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F617B29F1FF2300FFBAE1 /* CurrencyModel.swift */; };
+		552F617E29F1FFE200FFBAE1 /* CurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F617D29F1FFE200FFBAE1 /* CurrencyViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		552F616C29F1F09900FFBAE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		552F616F29F1F09900FFBAE1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		552F617129F1F09900FFBAE1 /* CCMB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CCMB.entitlements; sourceTree = "<group>"; };
+		552F617B29F1FF2300FFBAE1 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
+		552F617D29F1FFE200FFBAE1 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +56,6 @@
 		552F616729F1F09700FFBAE1 /* CCMB */ = {
 			isa = PBXGroup;
 			children = (
-				552F617829F1F0D200FFBAE1 /* NetworkCall */,
 				552F617729F1F0CC00FFBAE1 /* CurrencyBar */,
 				552F616829F1F09700FFBAE1 /* CCMBApp.swift */,
 				552F616C29F1F09900FFBAE1 /* Assets.xcassets */,
@@ -74,15 +77,10 @@
 			isa = PBXGroup;
 			children = (
 				552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */,
+				552F617B29F1FF2300FFBAE1 /* CurrencyModel.swift */,
+				552F617D29F1FFE200FFBAE1 /* CurrencyViewModel.swift */,
 			);
 			path = CurrencyBar;
-			sourceTree = "<group>";
-		};
-		552F617829F1F0D200FFBAE1 /* NetworkCall */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NetworkCall;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +154,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				552F616B29F1F09700FFBAE1 /* CurrencyBarView.swift in Sources */,
+				552F617E29F1FFE200FFBAE1 /* CurrencyViewModel.swift in Sources */,
+				552F617C29F1FF2300FFBAE1 /* CurrencyModel.swift in Sources */,
 				552F616929F1F09700FFBAE1 /* CCMBApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
