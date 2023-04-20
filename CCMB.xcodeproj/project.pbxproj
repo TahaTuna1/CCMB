@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		552F616929F1F09700FFBAE1 /* CCMBApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F616829F1F09700FFBAE1 /* CCMBApp.swift */; };
-		552F616B29F1F09700FFBAE1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F616A29F1F09700FFBAE1 /* ContentView.swift */; };
+		552F616B29F1F09700FFBAE1 /* CurrencyBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */; };
 		552F616D29F1F09900FFBAE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552F616C29F1F09900FFBAE1 /* Assets.xcassets */; };
 		552F617029F1F09900FFBAE1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552F616F29F1F09900FFBAE1 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		552F616529F1F09700FFBAE1 /* CCMB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCMB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		552F616829F1F09700FFBAE1 /* CCMBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCMBApp.swift; sourceTree = "<group>"; };
-		552F616A29F1F09700FFBAE1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyBarView.swift; sourceTree = "<group>"; };
 		552F616C29F1F09900FFBAE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		552F616F29F1F09900FFBAE1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		552F617129F1F09900FFBAE1 /* CCMB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CCMB.entitlements; sourceTree = "<group>"; };
@@ -52,8 +52,9 @@
 		552F616729F1F09700FFBAE1 /* CCMB */ = {
 			isa = PBXGroup;
 			children = (
+				552F617829F1F0D200FFBAE1 /* NetworkCall */,
+				552F617729F1F0CC00FFBAE1 /* CurrencyBar */,
 				552F616829F1F09700FFBAE1 /* CCMBApp.swift */,
-				552F616A29F1F09700FFBAE1 /* ContentView.swift */,
 				552F616C29F1F09900FFBAE1 /* Assets.xcassets */,
 				552F617129F1F09900FFBAE1 /* CCMB.entitlements */,
 				552F616E29F1F09900FFBAE1 /* Preview Content */,
@@ -67,6 +68,21 @@
 				552F616F29F1F09900FFBAE1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		552F617729F1F0CC00FFBAE1 /* CurrencyBar */ = {
+			isa = PBXGroup;
+			children = (
+				552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */,
+			);
+			path = CurrencyBar;
+			sourceTree = "<group>";
+		};
+		552F617829F1F0D200FFBAE1 /* NetworkCall */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetworkCall;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				552F616B29F1F09700FFBAE1 /* ContentView.swift in Sources */,
+				552F616B29F1F09700FFBAE1 /* CurrencyBarView.swift in Sources */,
 				552F616929F1F09700FFBAE1 /* CCMBApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
