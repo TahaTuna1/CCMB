@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550DE11329F31EE9009E4EEB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DE11229F31EE9009E4EEB /* Constants.swift */; };
 		552F616929F1F09700FFBAE1 /* CCMBApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F616829F1F09700FFBAE1 /* CCMBApp.swift */; };
 		552F616B29F1F09700FFBAE1 /* CurrencyBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */; };
 		552F616D29F1F09900FFBAE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552F616C29F1F09900FFBAE1 /* Assets.xcassets */; };
 		552F617029F1F09900FFBAE1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552F616F29F1F09900FFBAE1 /* Preview Assets.xcassets */; };
 		552F617C29F1FF2300FFBAE1 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F617B29F1FF2300FFBAE1 /* CurrencyModel.swift */; };
 		552F617E29F1FFE200FFBAE1 /* CurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F617D29F1FFE200FFBAE1 /* CurrencyViewModel.swift */; };
+		558E620929F324F600E37AA7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558E620829F324F600E37AA7 /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		550DE11229F31EE9009E4EEB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		552F616529F1F09700FFBAE1 /* CCMB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCMB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		552F616829F1F09700FFBAE1 /* CCMBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCMBApp.swift; sourceTree = "<group>"; };
 		552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyBarView.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		552F617129F1F09900FFBAE1 /* CCMB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CCMB.entitlements; sourceTree = "<group>"; };
 		552F617B29F1FF2300FFBAE1 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		552F617D29F1FFE200FFBAE1 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
+		558E620829F324F600E37AA7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		550DE11129F31ED6009E4EEB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				550DE11229F31EE9009E4EEB /* Constants.swift */,
+				558E620829F324F600E37AA7 /* LoadingView.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		552F615C29F1F09700FFBAE1 = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +69,7 @@
 		552F616729F1F09700FFBAE1 /* CCMB */ = {
 			isa = PBXGroup;
 			children = (
+				550DE11129F31ED6009E4EEB /* Utilities */,
 				552F617729F1F0CC00FFBAE1 /* CurrencyBar */,
 				552F616829F1F09700FFBAE1 /* CCMBApp.swift */,
 				552F616C29F1F09900FFBAE1 /* Assets.xcassets */,
@@ -153,10 +167,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				550DE11329F31EE9009E4EEB /* Constants.swift in Sources */,
 				552F616B29F1F09700FFBAE1 /* CurrencyBarView.swift in Sources */,
 				552F617E29F1FFE200FFBAE1 /* CurrencyViewModel.swift in Sources */,
 				552F617C29F1FF2300FFBAE1 /* CurrencyModel.swift in Sources */,
 				552F616929F1F09700FFBAE1 /* CCMBApp.swift in Sources */,
+				558E620929F324F600E37AA7 /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
