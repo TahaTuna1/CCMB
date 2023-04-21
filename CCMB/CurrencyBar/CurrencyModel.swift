@@ -10,3 +10,8 @@ import Foundation
 struct CurrencyData: Codable {
     let data: [String: Double]
 }
+
+struct Currency {
+    var name: String
+    var amount: Double
+}

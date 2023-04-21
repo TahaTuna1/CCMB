@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct CurrencyBarView: View {
+    @ObservedObject var viewModel = CurrencyViewModel()
+    
     var body: some View {
-        @ObservedObject var viewModel = CurrencyViewModel()
         
         ZStack {
             // Content view
@@ -25,19 +26,19 @@ struct CurrencyBarView: View {
                 
                 
                 HStack{
-                    Image(systemName: "dollarsign").padding(5)
+                    Text(viewModel.secondCurrency.name).padding(5)
                     Spacer()
-                    Text("10")
+                    Text(String(format: "%.2f", viewModel.secondCurrency.amount))
                 }
                 HStack{
-                    Image(systemName: "turkishlirasign").padding(5)
+                    Text(viewModel.thirdCurrency.name).padding(5)
                     Spacer()
-                    Text("10")
+                    Text(String(format: "%.2f", viewModel.thirdCurrency.amount))
                 }
                 HStack{
-                    Image(systemName: "rublesign").padding(5)
+                    Text(viewModel.fourthCurrency.name).padding(5)
                     Spacer()
-                    Text("10")
+                    Text(String(format: "%.2f", viewModel.fourthCurrency.amount))
                 }
                 
                 //Refresh Button
