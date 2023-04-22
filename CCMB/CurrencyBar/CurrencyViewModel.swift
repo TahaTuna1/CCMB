@@ -12,6 +12,7 @@ class CurrencyViewModel: ObservableObject{
     @Published var baseCurrency: String = "EUR" // Default base currency
     @Published var currencyData: CurrencyData?
     @Published var isLoading = false
+    @Published var allCurrencies: [AllCurrencies] = []
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -66,6 +67,7 @@ class CurrencyViewModel: ObservableObject{
             }
             .store(in: &cancellables)
     }
+    //MARK: Updating Currency Data
     private func updateCurrencyData() {
         func updateCurrencyAmount(for currency: inout Currency, with data: [String: Double], using currencyCodes: [String]) {
             if let index = currencyCodes.firstIndex(where: { $0 == currency.name }) {
@@ -84,4 +86,29 @@ class CurrencyViewModel: ObservableObject{
             self.isLoading = false
         }
     }
+    
+    //MARK: Fetch Symbols and Codes from Local JSON
+    func fetchSymbols() {
+            if let url = Bundle.main.url(forResource: "CurrencyList", withExtension: "json") {
+                do {
+                    let data = try Data(contentsOf: url)
+                    let response = try JSONDecoder().decode(CurrencyList.self, from: data)
+
+                    
+                    
+                    DispatchQueue.main.async {
+                        self.allCurrencies.removeAll()
+                        for currency in response.data.values {
+                            self.allCurrencies.append(currency)
+                        }
+                        self.allCurrencies.sort { $0.name < $1.name }
+                        print("Current Currency List: \(self.allCurrencies)")
+                    }
+                } catch {
+                    print("Couldn't fetch symbols. \(error.localizedDescription)")
+                }
+            }
+        }
+    
+    
 }

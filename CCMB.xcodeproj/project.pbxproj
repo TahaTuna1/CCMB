@@ -14,6 +14,7 @@
 		552F617029F1F09900FFBAE1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552F616F29F1F09900FFBAE1 /* Preview Assets.xcassets */; };
 		552F617C29F1FF2300FFBAE1 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F617B29F1FF2300FFBAE1 /* CurrencyModel.swift */; };
 		552F617E29F1FFE200FFBAE1 /* CurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F617D29F1FFE200FFBAE1 /* CurrencyViewModel.swift */; };
+		555F103E29F403E20091CFB0 /* CurrencyList.json in Resources */ = {isa = PBXBuildFile; fileRef = 555F103D29F403E20091CFB0 /* CurrencyList.json */; };
 		558E620929F324F600E37AA7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558E620829F324F600E37AA7 /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		552F617129F1F09900FFBAE1 /* CCMB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CCMB.entitlements; sourceTree = "<group>"; };
 		552F617B29F1FF2300FFBAE1 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		552F617D29F1FFE200FFBAE1 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
+		555F103D29F403E20091CFB0 /* CurrencyList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrencyList.json; sourceTree = "<group>"; };
 		558E620829F324F600E37AA7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,6 +46,7 @@
 		550DE11129F31ED6009E4EEB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				555F103D29F403E20091CFB0 /* CurrencyList.json */,
 				550DE11229F31EE9009E4EEB /* Constants.swift */,
 				558E620829F324F600E37AA7 /* LoadingView.swift */,
 			);
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				552F617029F1F09900FFBAE1 /* Preview Assets.xcassets in Resources */,
+				555F103E29F403E20091CFB0 /* CurrencyList.json in Resources */,
 				552F616D29F1F09900FFBAE1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

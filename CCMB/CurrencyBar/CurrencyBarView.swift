@@ -11,6 +11,8 @@ struct CurrencyBarView: View {
     @ObservedObject var viewModel = CurrencyViewModel()
     @State private var enteredAmount: Double = 1.0
     @State var infoTabShowing: Bool = false
+    @State private var selectedItem = 0
+    @State var isShowingList: Bool = false
     
     var body: some View {
         
@@ -20,11 +22,39 @@ struct CurrencyBarView: View {
             }
             // Content view
             VStack{
-                HStack{  //Main
-                    Image(systemName: "eurosign").padding(5)
+                HStack{  //MARK: Main
+                    HStack {
+                        Text(viewModel.baseCurrency)
+                            .padding(.leading, 5)
+                            .foregroundColor(.white)
+                        Image(systemName: "chevron.down")
+                            .font(.caption)
+                            .foregroundColor(.white)
+                    }
+                    .onTapGesture {
+                        isShowingList = true
+                    }//MARK: Popover List
+                    .popover(isPresented: $isShowingList, arrowEdge: .leading) {
+                        List(selection: $selectedItem) {
+                            ForEach(0 ..< viewModel.allCurrencies.count, id: \.self) { index in
+                                HStack {
+                                    Text(viewModel.allCurrencies[index].name)
+                                    Spacer()
+                                    Text(viewModel.allCurrencies[index].symbol_native)
+                                    
+                                }
+                            }
+                        }
+                        .frame(height: 200)
+                    } // Fetch symbols from local JSON on launch
+                    .onAppear{
+                        viewModel.fetchSymbols()
+                    }
+                    
                     Spacer()
                     
                     TextField("Enter Amount", value: $enteredAmount, format: .number)
+                        .foregroundColor(.white)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.trailing)
                         .padding(5)
@@ -32,7 +62,7 @@ struct CurrencyBarView: View {
                     
                 }
                 .frame(width: 150, height: 40)
-                .background(.red)
+                .background(Color("Custom")) //MARK: Change This Custom Color
                 .cornerRadius(10)
                 
                 
@@ -51,6 +81,9 @@ struct CurrencyBarView: View {
                     name: viewModel.fourthCurrency.name,
                     amount: enteredAmount * viewModel.fourthCurrency.amount)
                 .blur(radius: viewModel.isLoading ? 2 : 0)
+                
+                
+                
                 
                 
                 
@@ -88,8 +121,6 @@ struct CurrencyBarView: View {
             }
             .frame(width: 150).padding(15)
         }
-        
-        
     }
 }
 
@@ -97,17 +128,23 @@ struct CurrencyBarView: View {
 struct SecondaryCurrencyView: View{
     var name: String
     var amount: Double
+    
     var body: some View{
         HStack{
-            Text(name)
-                .padding(5)
+            HStack {
+                Text(name)
+                    .padding(.leading, 5)
+                Image(systemName: "chevron.down").font(.caption)
+            }
+            
             Spacer()
+            
             Text(String(format: "%.2f", amount))
                 .minimumScaleFactor(0.5)
                 .padding(5)
         }
         .frame(height: 35)
-        .background(Color(.white).opacity(0.05))
+        .background(.white.opacity(0.1))
         .cornerRadius(5)
         .animation(.spring(), value: 3)
     }

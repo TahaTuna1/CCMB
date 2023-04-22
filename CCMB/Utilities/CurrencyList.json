@@ -1,0 +1,169 @@
+{
+  "data": {
+    "EUR": {
+      "name": "Euro",
+      "symbol_native": "€", 
+      "code": "EUR"
+    },
+    "USD": {
+      "name": "US Dollar",
+      "symbol_native": "$",
+      "code": "USD"
+    },
+    "JPY": {
+      "name": "Japanese Yen",
+      "symbol_native": "￥",
+      "code": "JPY"
+    },
+    "BGN": {
+      "name": "Bulgarian Lev",
+      "symbol_native": "лв.",
+      "code": "BGN"
+    },
+    "CZK": {
+      "name": "Czech Republic Koruna",
+      "symbol_native": "Kč",
+      "code": "CZK"
+    },
+    "DKK": {
+      "name": "Danish Krone",
+      "symbol_native": "kr",
+      "code": "DKK"
+    },
+    "GBP": {
+      "name": "British Pound Sterling",
+      "symbol_native": "£",
+      "code": "GBP"
+    },
+    "HUF": {
+      "name": "Hungarian Forint",
+      "symbol_native": "Ft",
+      "code": "HUF"
+    },
+    "PLN": {
+      "name": "Polish Zloty",
+      "symbol_native": "zł",
+      "code": "PLN"
+    },
+    "RON": {
+      "name": "Romanian Leu",
+      "symbol_native": "RON",
+      "code": "RON"
+    },
+    "SEK": {
+      "name": "Swedish Krona",
+      "symbol_native": "kr",
+      "code": "SEK"
+    },
+    "CHF": {
+      "name": "Swiss Franc",
+      "symbol_native": "CHF",
+      "code": "CHF"
+    },
+    "ISK": {
+      "name": "Icelandic Króna",
+      "symbol_native": "kr",
+      "code": "ISK"
+    },
+    "NOK": {
+      "name": "Norwegian Krone",
+      "symbol_native": "kr",
+      "code": "NOK"
+    },
+    "HRK": {
+      "name": "Croatian Kuna",
+      "symbol_native": "kn",
+      "code": "HRK"
+    },
+    "RUB": {
+      "name": "Russian Ruble",
+      "symbol_native": "руб.",
+      "code": "RUB"
+    },
+    "TRY": {
+      "name": "Turkish Lira",
+      "symbol_native": "TL",
+      "code": "TRY"
+    },
+    "AUD": {
+      "name": "Australian Dollar",
+      "symbol_native": "$",
+      "code": "AUD"
+    },
+    "BRL": {
+      "name": "Brazilian Real",
+      "symbol_native": "R$",
+      "code": "BRL"
+    },
+    "CAD": {
+      "name": "Canadian Dollar",
+      "symbol_native": "$",
+      "code": "CAD"
+    },
+    "CNY": {
+      "name": "Chinese Yuan",
+      "symbol_native": "CN¥",
+      "code": "CNY"
+    },
+    "HKD": {
+      "name": "Hong Kong Dollar",
+      "symbol_native": "$",
+      "code": "HKD"
+    },
+    "IDR": {
+      "name": "Indonesian Rupiah",
+      "symbol_native": "Rp",
+      "code": "IDR"
+    },
+    "ILS": {
+      "name": "Israeli New Sheqel",
+      "symbol_native": "₪",
+      "code": "ILS"
+    },
+    "INR": {
+      "name": "Indian Rupee",
+      "symbol_native": "টকা",
+      "code": "INR"
+    },
+    "KRW": {
+      "name": "South Korean Won",
+      "symbol_native": "₩",
+      "code": "KRW"
+    },
+    "MXN": {
+      "name": "Mexican Peso",
+      "symbol_native": "$",
+      "code": "MXN"
+    },
+    "MYR": {
+      "name": "Malaysian Ringgit",
+      "symbol_native": "RM",
+      "code": "MYR"
+    },
+    "NZD": {
+      "name": "New Zealand Dollar",
+      "symbol_native": "$",
+      "code": "NZD"
+    },
+    "PHP": {
+      "name": "Philippine Peso",
+      "symbol_native": "₱",
+      "code": "PHP"
+    },
+    "SGD": {
+      "name": "Singapore Dollar",
+      "symbol_native": "$",
+      "code": "SGD"
+    },
+    "THB": {
+      "name": "Thai Baht",
+      "symbol_native": "฿",
+      "code": "THB"
+    },
+    "ZAR": {
+      "name": "South African Rand",
+      "symbol_native": "R",
+      "code": "ZAR"
+    }
+  }
+}
