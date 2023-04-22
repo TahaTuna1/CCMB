@@ -11,7 +11,7 @@ struct CurrencyBarView: View {
     @ObservedObject var viewModel = CurrencyViewModel()
     @State private var enteredAmount: Double = 1.0
     @State var infoTabShowing: Bool = false
-    @State private var selectedItem = 0
+    @State private var selectedItem = ""
     @State var isShowingList: Bool = false
     
     var body: some View {
@@ -42,14 +42,29 @@ struct CurrencyBarView: View {
                                     Spacer()
                                     Text(viewModel.allCurrencies[index].symbol_native)
                                     
-                                }
+                                }.font(.body).tag(viewModel.allCurrencies[index].code)
                             }
                         }
-                        .frame(height: 200)
-                    } // Fetch symbols from local JSON on launch
+                        .frame(height: 150)
+                    }// ON CHANGE
+                    .onChange(of: selectedItem) { value in
+                        viewModel.baseCurrency = value
+                        viewModel.currencyChanged = true
+                        
+                        if viewModel.currencyChanged{
+                            viewModel.fetchCurrencyData(
+                                currencies: [viewModel.secondCurrency.name,
+                                             viewModel.thirdCurrency.name,
+                                             viewModel.fourthCurrency.name])
+                            isShowingList = false
+                        }
+                        
+                    }
+                    // Fetch symbols from local JSON on launch
                     .onAppear{
                         viewModel.fetchSymbols()
                     }
+                    
                     
                     Spacer()
                     
@@ -61,9 +76,9 @@ struct CurrencyBarView: View {
                     
                     
                 }
-                .frame(width: 150, height: 40)
+                .frame(height: 50)
                 .background(Color("Custom")) //MARK: Change This Custom Color
-                .cornerRadius(10)
+                
                 
                 
                 // 2nd 3rd 4th Currencies
@@ -88,38 +103,60 @@ struct CurrencyBarView: View {
                 
                 
                 
-                //Refresh Button
-                Button { // Get all the current currency names and fetch the data
-                    viewModel.fetchCurrencyData(currencies: [viewModel.secondCurrency.name, viewModel.thirdCurrency.name, viewModel.fourthCurrency.name])
-                } label: {
-                    Text("Refresh").frame(width: 100)
-                }
-                
-                
-                //QUIT Button - INFO Button
+                //MARK: Buttons
                 HStack {
+                    //MARK: REFRESH Button
+                    Button { // Get all the current currency names and fetch the data
+                        viewModel.fetchCurrencyData(
+                            currencies: [viewModel.secondCurrency.name,
+                                         viewModel.thirdCurrency.name,
+                                         viewModel.fourthCurrency.name])
+                    } label: {
+                        Image(systemName: "dollarsign.arrow.circlepath")
+                            .frame(width: 40)
+                            .font(.title2)
+                            .foregroundColor(.green)
+                    }
+                    
+                    Spacer()
+                    
+                    //MARK: INFO Button
+                    Button {
+                        infoTabShowing.toggle()
+                    } label: {
+                        Image(systemName: "questionmark.circle")
+                            .frame(width: 40)
+                            .font(.title2)
+                    }
+                    
+                    Spacer()
+                    
+                    //MARK: QUIT Button
                     Button {
                         NSApplication.shared.terminate(nil)
                         //NSApp.terminate(nil) 2 ways of terminating. Don't know which is the best
                     } label: {
-                        Text("Quit").frame(width: 61)
-                    }
-                    
-                    // Info
-                    Button {
-                        infoTabShowing.toggle()
-                    } label: {
-                        Image(systemName: "questionmark.app")
-                        
+                        Image(systemName: "power.circle")
+                            .frame(width: 40)
+                            .font(.title2)
+                            .foregroundColor(.red)
                     }
                 }
+                .frame(height: 50)
+                .background(.white.opacity(0.3))
+                .buttonStyle(.borderless)
+                
+                
+                
+                
+                
                 // Last Update View
                 if infoTabShowing{
                     InfoView(date: viewModel.lastUpdate)
                 }
                 
             }
-            .frame(width: 150).padding(15)
+            .frame(width: 180)
         }
     }
 }

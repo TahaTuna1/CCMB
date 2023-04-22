@@ -13,6 +13,7 @@ class CurrencyViewModel: ObservableObject{
     @Published var currencyData: CurrencyData?
     @Published var isLoading = false
     @Published var allCurrencies: [AllCurrencies] = []
+    @Published var currencyChanged: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -31,7 +32,7 @@ class CurrencyViewModel: ObservableObject{
         let currentTime = Date()
         let timeDifference = Calendar.current.dateComponents([.hour], from: lastUpdate, to: currentTime).hour ?? 0
         
-        if timeDifference < 1 {
+        if timeDifference < 1 && !currencyChanged {
             updateCurrencyData()
             print("No new network call. Currency Values updated.")
             return
@@ -62,7 +63,7 @@ class CurrencyViewModel: ObservableObject{
                 print(self?.currencyData ?? "failed to print currencyData")
                 self?.lastUpdate = Date()
                 self?.updateCurrencyData()
-                
+                self?.currencyChanged = false
                 
             }
             .store(in: &cancellables)
