@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct CurrencyBarView: View {
+    
+    @State var currentTheme: AppTheme = AppTheme.theme1
+    
     @ObservedObject var viewModel = CurrencyViewModel()
     @State private var enteredAmount: Double = 1.0
     @State var infoTabShowing: Bool = false
@@ -31,14 +34,16 @@ struct CurrencyBarView: View {
             }
             // Content view
             VStack{
+                
+                
                 HStack{  //MARK: Main
                     HStack {
                         Text(viewModel.baseCurrency)
                             .padding(.leading, 5)
-                            .foregroundColor(.blue)
+                            .foregroundColor(currentTheme.mainText)
                         Image(systemName: "chevron.down")
                             .font(.caption)
-                            .foregroundColor(.blue)
+                            .foregroundColor(currentTheme.mainText)
                     }
                     .onTapGesture {
                         isShowingList = true
@@ -70,7 +75,7 @@ struct CurrencyBarView: View {
                     Spacer()
                     
                     TextField("Enter Amount", value: $enteredAmount, format: .number)
-                        .foregroundColor(.blue)
+                        .foregroundColor(currentTheme.mainText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.trailing)
                         .padding(5)
@@ -78,16 +83,16 @@ struct CurrencyBarView: View {
                     
                 }
                 .frame(height: 50)
-                .background(.white)
+                .background(currentTheme.mainBackground)
                 
                 
                 // 2nd 3rd 4th Currencies
                 SecondaryCurrencyView(
                     name: $viewModel.secondCurrency.name,
                     amount: enteredAmount * viewModel.secondCurrency.amount,
-                isShowingList: $isShowingList2,
-                viewModel: viewModel,
-                selectedItem: $selectedItem2)
+                    isShowingList: $isShowingList2,
+                    viewModel: viewModel,
+                    selectedItem: $selectedItem2)
                 .blur(radius: viewModel.isLoading ? 2 : 0)
                 
                 SecondaryCurrencyView(
@@ -117,6 +122,7 @@ struct CurrencyBarView: View {
                 
                 //MARK: Buttons
                 HStack {
+                    Spacer()
                     //MARK: REFRESH Button
                     Button { // Get all the current currency names and fetch the data
                         viewModel.fetchCurrencyData(
@@ -125,9 +131,9 @@ struct CurrencyBarView: View {
                                          viewModel.fourthCurrency.name])
                     } label: {
                         Image(systemName: "dollarsign.arrow.circlepath")
-                            .frame(width: 40)
+                            .frame(width: 20)
                             .font(.title2)
-                            .foregroundColor(viewModel.currencyChanged ? .green : .gray.opacity(0.5))
+                            .foregroundColor(viewModel.currencyChanged ? .green : .white)
                     }
                     
                     Spacer()
@@ -137,11 +143,23 @@ struct CurrencyBarView: View {
                         infoTabShowing.toggle()
                     } label: {
                         Image(systemName: "questionmark.circle")
-                            .frame(width: 40)
-                            .font(.title2)
+                            .frame(width: 20)
+                            .font(.title3)
                     }
                     
                     Spacer()
+                    
+                    //MARK: Theme Toggle Button
+                    Image(systemName: "eye.circle")
+                        .font(.title3)
+                        .background(currentTheme.mainText)
+                        .onTapGesture {
+                            currentTheme = currentTheme.toggleTheme()
+                        }
+                    
+                   
+                    Spacer()
+                    
                     
                     //MARK: QUIT Button
                     Button {
@@ -149,15 +167,19 @@ struct CurrencyBarView: View {
                         //NSApp.terminate(nil) 2 ways of terminating. Don't know which is the best
                     } label: {
                         Image(systemName: "power.circle")
-                            .frame(width: 40)
+                            .frame(width: 20)
                             .font(.title2)
-                            .foregroundColor(.white)
+                            .foregroundColor(currentTheme.text)
                             
-                            
+                        
                     }
+                    
+                   Spacer()
+                    
                 }
-                .frame(height: 50)
-                .buttonStyle(.borderless)
+                    .frame(height: 40)
+                    .buttonStyle(.borderless)
+                
                 
                 
                 
@@ -168,9 +190,9 @@ struct CurrencyBarView: View {
                 
             }
             .frame(width: 180)
-            .background(.blue)
-            .foregroundColor(.white)
-        }
+            .background(currentTheme.background.gradient)
+            .foregroundColor(currentTheme.text)
+        }.preferredColorScheme(.light)
     }
 }
 

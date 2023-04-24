@@ -19,6 +19,7 @@
 		55D8CED729F6F00000406960 /* SecondaryCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8CED629F6F00000406960 /* SecondaryCurrencyView.swift */; };
 		55D8CED929F6F03900406960 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8CED829F6F03900406960 /* ListView.swift */; };
 		55D8CEDB29F6F05100406960 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8CEDA29F6F05100406960 /* InfoView.swift */; };
+		55D8CEDD29F6FD3300406960 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8CEDC29F6FD3300406960 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		55D8CED629F6F00000406960 /* SecondaryCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryCurrencyView.swift; sourceTree = "<group>"; };
 		55D8CED829F6F03900406960 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		55D8CEDA29F6F05100406960 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		55D8CEDC29F6FD3300406960 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 				555F103D29F403E20091CFB0 /* CurrencyList.json */,
 				550DE11229F31EE9009E4EEB /* Constants.swift */,
 				558E620829F324F600E37AA7 /* LoadingView.swift */,
+				55D8CEDC29F6FD3300406960 /* Theme.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				552F617C29F1FF2300FFBAE1 /* CurrencyModel.swift in Sources */,
 				55D8CED729F6F00000406960 /* SecondaryCurrencyView.swift in Sources */,
 				552F616929F1F09700FFBAE1 /* CCMBApp.swift in Sources */,
+				55D8CEDD29F6FD3300406960 /* Theme.swift in Sources */,
 				55D8CEDB29F6F05100406960 /* InfoView.swift in Sources */,
 				558E620929F324F600E37AA7 /* LoadingView.swift in Sources */,
 			);

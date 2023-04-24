@@ -15,6 +15,7 @@ class CurrencyViewModel: ObservableObject{
     @Published var allCurrencies: [AllCurrencies] = []
     @Published var currencyChanged: Bool = true
     
+    
     private var cancellables = Set<AnyCancellable>()
     
     @Published var secondCurrency: Currency = Currency(name: "USD", amount: 0.0)

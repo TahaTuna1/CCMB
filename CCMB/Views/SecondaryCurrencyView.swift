@@ -15,7 +15,6 @@ struct SecondaryCurrencyView: View{
     @ObservedObject var viewModel: CurrencyViewModel
     @Binding var selectedItem: String
     
-    
     var body: some View{
         HStack{
             HStack {
