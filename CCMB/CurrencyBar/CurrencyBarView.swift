@@ -11,6 +11,7 @@ struct CurrencyBarView: View {
     @ObservedObject var viewModel = CurrencyViewModel()
     @State private var enteredAmount: Double = 1.0
     @State var infoTabShowing: Bool = false
+    
     @State private var selectedItem = ""
     @State var isShowingList: Bool = false
     
@@ -34,10 +35,10 @@ struct CurrencyBarView: View {
                     HStack {
                         Text(viewModel.baseCurrency)
                             .padding(.leading, 5)
-                            .foregroundColor(.white)
+                            .foregroundColor(.blue)
                         Image(systemName: "chevron.down")
                             .font(.caption)
-                            .foregroundColor(.white)
+                            .foregroundColor(.blue)
                     }
                     .onTapGesture {
                         isShowingList = true
@@ -69,7 +70,7 @@ struct CurrencyBarView: View {
                     Spacer()
                     
                     TextField("Enter Amount", value: $enteredAmount, format: .number)
-                        .foregroundColor(.white)
+                        .foregroundColor(.blue)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.trailing)
                         .padding(5)
@@ -77,6 +78,7 @@ struct CurrencyBarView: View {
                     
                 }
                 .frame(height: 50)
+                .background(.white)
                 
                 
                 // 2nd 3rd 4th Currencies
@@ -125,7 +127,7 @@ struct CurrencyBarView: View {
                         Image(systemName: "dollarsign.arrow.circlepath")
                             .frame(width: 40)
                             .font(.title2)
-                            .foregroundColor(.green)
+                            .foregroundColor(viewModel.currencyChanged ? .green : .gray.opacity(0.5))
                     }
                     
                     Spacer()
@@ -150,6 +152,8 @@ struct CurrencyBarView: View {
                             .frame(width: 40)
                             .font(.title2)
                             .foregroundColor(.white)
+                            
+                            
                     }
                 }
                 .frame(height: 50)
@@ -164,86 +168,9 @@ struct CurrencyBarView: View {
                 
             }
             .frame(width: 180)
+            .background(.blue)
+            .foregroundColor(.white)
         }
-    }
-}
-
-// Small Currencies - 2nd, 3rd, 4th
-struct SecondaryCurrencyView: View{
-    @Binding var name: String
-    var amount: Double
-    @Binding var isShowingList: Bool
-    @ObservedObject var viewModel: CurrencyViewModel
-    @Binding var selectedItem: String
-    
-    
-    var body: some View{
-        HStack{
-            HStack {
-                Text(name)
-                    .padding(.leading, 5)
-                Image(systemName: "chevron.down").font(.caption)
-            }
-            .popover(isPresented: $isShowingList, arrowEdge: .bottom) {
-                ListView(viewModel: viewModel, selectedItem: $selectedItem)
-            }
-            .onTapGesture {
-                isShowingList = true
-            }
-            .onChange(of: selectedItem) { value in
-                name = value
-                viewModel.currencyChanged = true
-                
-               isShowingList = false
-                
-                
-            }
-            .onAppear{
-                viewModel.fetchSymbols()
-            }
-            
-            Spacer()
-            
-            Text(String(format: "%.2f", amount))
-                .minimumScaleFactor(0.5)
-                .padding(5)
-                //MARK: NEEDS FIX .blur(radius: name == selectedItem ? 2 : 0)
-        }
-        .frame(height: 35)
-        
-        .cornerRadius(5)
-        .animation(.spring(), value: 3)
-    }
-}
-
-struct ListView: View{
-    @ObservedObject var viewModel: CurrencyViewModel
-    @Binding var selectedItem: String
-    
-    
-    var body: some View{
-        List(selection: $selectedItem) {
-            ForEach(0 ..< viewModel.allCurrencies.count, id: \.self) { index in
-                HStack {
-                    Text(viewModel.allCurrencies[index].name)
-                    Spacer()
-                    Text(viewModel.allCurrencies[index].symbol_native)
-                    
-                }
-                .font(.body).tag(viewModel.allCurrencies[index].code)
-                
-            }
-        }
-        .frame(height: 150)
-    }
-}
-
-struct InfoView: View{
-    var date: Date
-    var body: some View{
-        Text("Last Update \(date)")
-            .font(.footnote)
-            .opacity(0.3)
     }
 }
 

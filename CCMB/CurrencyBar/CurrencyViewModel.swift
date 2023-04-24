@@ -13,7 +13,7 @@ class CurrencyViewModel: ObservableObject{
     @Published var currencyData: CurrencyData?
     @Published var isLoading = false
     @Published var allCurrencies: [AllCurrencies] = []
-    @Published var currencyChanged: Bool = false
+    @Published var currencyChanged: Bool = true
     
     private var cancellables = Set<AnyCancellable>()
     
