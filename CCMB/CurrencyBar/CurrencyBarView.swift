@@ -26,6 +26,10 @@ struct CurrencyBarView: View {
     @State private var selectedItem3 = ""
     @State private var selectedItem4 = ""
     
+    @State private var animationAmount = 1.0
+    
+    
+    
     var body: some View {
         
         ZStack {
@@ -64,13 +68,11 @@ struct CurrencyBarView: View {
                                              viewModel.fourthCurrency.name])
                             isShowingList = false
                         }
-                        
                     }
                     // Fetch symbols from local JSON on launch
                     .onAppear{
                         viewModel.fetchSymbols()
                     }
-                    
                     
                     Spacer()
                     
@@ -79,8 +81,6 @@ struct CurrencyBarView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.trailing)
                         .padding(5)
-                    
-                    
                 }
                 .frame(height: 50)
                 .background(currentTheme.mainBackground)
@@ -115,16 +115,13 @@ struct CurrencyBarView: View {
                 
                 
                 
-                
-                
-                
-                
-                
                 //MARK: Buttons
                 HStack {
                     Spacer()
                     //MARK: REFRESH Button
-                    Button { // Get all the current currency names and fetch the data
+                    
+                    Button {
+                        // Get all the current currency names and fetch the data
                         viewModel.fetchCurrencyData(
                             currencies: [viewModel.secondCurrency.name,
                                          viewModel.thirdCurrency.name,
@@ -134,7 +131,9 @@ struct CurrencyBarView: View {
                             .frame(width: 20)
                             .font(.title2)
                             .foregroundColor(viewModel.currencyChanged ? .green : .white)
+                        
                     }
+                    
                     
                     Spacer()
                     
@@ -152,12 +151,13 @@ struct CurrencyBarView: View {
                     //MARK: Theme Toggle Button
                     Image(systemName: "eye.circle")
                         .font(.title3)
-                        .background(currentTheme.mainText)
                         .onTapGesture {
-                            currentTheme = currentTheme.toggleTheme()
+                            withAnimation {
+                                currentTheme = currentTheme.toggleTheme()
+                            }
                         }
                     
-                   
+                    
                     Spacer()
                     
                     
@@ -170,16 +170,13 @@ struct CurrencyBarView: View {
                             .frame(width: 20)
                             .font(.title2)
                             .foregroundColor(currentTheme.text)
-                            
-                        
                     }
                     
-                   Spacer()
+                    Spacer()
                     
                 }
-                    .frame(height: 40)
-                    .buttonStyle(.borderless)
-                
+                .frame(height: 40)
+                .buttonStyle(.borderless)
                 
                 
                 
@@ -192,7 +189,11 @@ struct CurrencyBarView: View {
             .frame(width: 180)
             .background(currentTheme.background.gradient)
             .foregroundColor(currentTheme.text)
+            
+            
         }.preferredColorScheme(.light)
+            
+            
     }
 }
 

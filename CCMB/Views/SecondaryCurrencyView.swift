@@ -48,6 +48,6 @@ struct SecondaryCurrencyView: View{
         }
         .frame(height: 35)
         .cornerRadius(5)
-        .animation(.spring(), value: 3)
+        .animation(.easeOut, value: 3)
     }
 }
