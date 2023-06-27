@@ -13,13 +13,13 @@ struct AppTheme: Equatable {
     let background: Color
     let text: Color
     
-    static let theme1 = AppTheme(
+    static let theme2 = AppTheme(
         mainBackground: Color("BgMainBlue"),
         mainText: Color("TextMainBlue"),
         background: Color("BgBlue"),
         text: Color("TextBlue"))
     
-    static let theme2 = AppTheme(
+    static let theme1 = AppTheme(
         mainBackground: Color("BgMainRed"),
         mainText: Color("TextMainRed"),
         background: Color("BgRed"),
