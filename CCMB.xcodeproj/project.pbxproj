@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		550DE11329F31EE9009E4EEB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550DE11229F31EE9009E4EEB /* Constants.swift */; };
 		552F616929F1F09700FFBAE1 /* CCMBApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F616829F1F09700FFBAE1 /* CCMBApp.swift */; };
 		552F616B29F1F09700FFBAE1 /* CurrencyBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */; };
 		552F616D29F1F09900FFBAE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552F616C29F1F09900FFBAE1 /* Assets.xcassets */; };
@@ -23,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		550DE11229F31EE9009E4EEB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		552F616529F1F09700FFBAE1 /* CCMB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCMB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		552F616829F1F09700FFBAE1 /* CCMBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCMBApp.swift; sourceTree = "<group>"; };
 		552F616A29F1F09700FFBAE1 /* CurrencyBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyBarView.swift; sourceTree = "<group>"; };
@@ -56,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				555F103D29F403E20091CFB0 /* CurrencyList.json */,
-				550DE11229F31EE9009E4EEB /* Constants.swift */,
 				558E620829F324F600E37AA7 /* LoadingView.swift */,
 				55D8CEDC29F6FD3300406960 /* Theme.swift */,
 			);
@@ -194,7 +191,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55D8CED929F6F03900406960 /* ListView.swift in Sources */,
-				550DE11329F31EE9009E4EEB /* Constants.swift in Sources */,
 				552F616B29F1F09700FFBAE1 /* CurrencyBarView.swift in Sources */,
 				552F617E29F1FFE200FFBAE1 /* CurrencyViewModel.swift in Sources */,
 				552F617C29F1FF2300FFBAE1 /* CurrencyModel.swift in Sources */,
