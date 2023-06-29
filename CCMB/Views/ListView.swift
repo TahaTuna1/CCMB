@@ -22,6 +22,8 @@ struct ListView: View{
                     
                 }
                 .font(.body).tag(viewModel.allCurrencies[index].code)
+                .foregroundColor(.black)
+                .fontWeight(.light)
                 
             }
         }

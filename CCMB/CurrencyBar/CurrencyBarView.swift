@@ -38,11 +38,9 @@ struct CurrencyBarView: View {
             }
             // Content view
             VStack{
-                
-                
                 HStack{  //MARK: Main
                     HStack {
-                        Text(viewModel.baseCurrency)
+                        Text(viewModel.baseCurrency.name)
                             .padding(.leading, 5)
                             .foregroundColor(currentTheme.mainText)
                         Image(systemName: "chevron.down")
@@ -52,13 +50,13 @@ struct CurrencyBarView: View {
                     .onTapGesture {
                         isShowingList = true
                     }//MARK: Popover List
-                    .popover(isPresented: $isShowingList, arrowEdge: .leading) {
+                    .popover(isPresented: $isShowingList, arrowEdge: .bottom) {
                         
                         ListView(viewModel: viewModel, selectedItem: $selectedItem)
                         
                     }// ON CHANGE
                     .onChange(of: selectedItem) { value in
-                        viewModel.baseCurrency = value
+                        viewModel.baseCurrency.name = value
                         viewModel.currencyChanged = true
                         
                         if viewModel.currencyChanged{
@@ -139,11 +137,17 @@ struct CurrencyBarView: View {
                     
                     //MARK: INFO Button
                     Button {
-                        infoTabShowing.toggle()
+                        if viewModel.lastUpdate != Date.distantPast{
+                            infoTabShowing.toggle()
+                        }
                     } label: {
                         Image(systemName: "questionmark.circle")
                             .frame(width: 20)
                             .font(.title3)
+                    }
+                    .popover(isPresented: $infoTabShowing, arrowEdge: .bottom) {
+                        InfoView(date: viewModel.lastUpdate)
+                            .frame(width: 170, height: 50, alignment: .center)
                     }
                     
                     Spacer()
@@ -177,23 +181,15 @@ struct CurrencyBarView: View {
                 }
                 .frame(height: 40)
                 .buttonStyle(.borderless)
-                
-                
-                
-                // Last Update View
-                if infoTabShowing{
-                    InfoView(date: viewModel.lastUpdate)
-                }
-                
             }
             .frame(width: 180)
-            .background(currentTheme.background.gradient)
+            .background(currentTheme.background)
             .foregroundColor(currentTheme.text)
             
             
         }.preferredColorScheme(.light)
-            
-            
+        
+        
     }
 }
 

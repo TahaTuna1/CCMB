@@ -9,7 +9,6 @@ import Combine
 import SwiftUI
 
 class CurrencyViewModel: ObservableObject{
-    @Published var baseCurrency: String = "EUR" // Default base currency
     @Published var currencyData: CurrencyData?
     @Published var isLoading = false
     @Published var allCurrencies: [AllCurrencies] = []
@@ -18,9 +17,43 @@ class CurrencyViewModel: ObservableObject{
     
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var secondCurrency: Currency = Currency(name: "USD", amount: 0.0)
-    @Published var thirdCurrency: Currency = Currency(name: "TRY", amount: 0.0)
-    @Published var fourthCurrency: Currency = Currency(name: "RUB", amount: 0.0)
+    @Published var baseCurrency: Currency {
+            didSet {
+                UserDefaults.standard.set(baseCurrency.name, forKey: "baseCurrencyName")
+            }
+        }
+    
+    @Published var secondCurrency: Currency {
+        didSet {
+            UserDefaults.standard.set(secondCurrency.name, forKey: "secondCurrencyName")
+        }
+    }
+    
+    @Published var thirdCurrency: Currency {
+        didSet {
+            UserDefaults.standard.set(thirdCurrency.name, forKey: "thirdCurrencyName")
+        }
+    }
+    
+    @Published var fourthCurrency: Currency {
+        didSet {
+            UserDefaults.standard.set(fourthCurrency.name, forKey: "fourthCurrencyName")
+        }
+    }
+    
+    init() {
+        let baseName = UserDefaults.standard.string(forKey: "baseCurrencyName") ?? "EUR"
+        baseCurrency = Currency(name: baseName, amount: 0.0)
+        
+        let secondName = UserDefaults.standard.string(forKey: "secondCurrencyName") ?? "USD"
+        secondCurrency = Currency(name: secondName, amount: 0.0)
+        
+        let thirdName = UserDefaults.standard.string(forKey: "thirdCurrencyName") ?? "TRY"
+        thirdCurrency = Currency(name: thirdName, amount: 0.0)
+        
+        let fourthName = UserDefaults.standard.string(forKey: "fourthCurrencyName") ?? "RUB"
+        fourthCurrency = Currency(name: fourthName, amount: 0.0)
+    }
     
     // Last Update
     @Published var lastUpdate: Date = .distantPast
@@ -42,7 +75,7 @@ class CurrencyViewModel: ObservableObject{
         let finalCurrencies = currencies.joined(separator: "%2C")
         print(finalCurrencies)
         
-        guard let url = URL(string: "https://api.freecurrencyapi.com/v1/latest?apikey=\(apiKey)&currencies=\(finalCurrencies)&base_currency=\(baseCurrency)") else {
+        guard let url = URL(string: "https://api.freecurrencyapi.com/v1/latest?apikey=\(apiKey)&currencies=\(finalCurrencies)&base_currency=\(baseCurrency.name)") else {
             fatalError("Invalid URL")
         }
         print(url)
@@ -91,26 +124,26 @@ class CurrencyViewModel: ObservableObject{
     
     //MARK: Fetch Symbols and Codes from Local JSON
     func fetchSymbols() {
-            if let url = Bundle.main.url(forResource: "CurrencyList", withExtension: "json") {
-                do {
-                    let data = try Data(contentsOf: url)
-                    let response = try JSONDecoder().decode(CurrencyList.self, from: data)
-
-                    
-                    
-                    DispatchQueue.main.async {
-                        self.allCurrencies.removeAll()
-                        for currency in response.data.values {
-                            self.allCurrencies.append(currency)
-                        }
-                        self.allCurrencies.sort { $0.name < $1.name }
-                        print("Current Currency List: \(self.allCurrencies)")
+        if let url = Bundle.main.url(forResource: "CurrencyList", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let response = try JSONDecoder().decode(CurrencyList.self, from: data)
+                
+                
+                
+                DispatchQueue.main.async {
+                    self.allCurrencies.removeAll()
+                    for currency in response.data.values {
+                        self.allCurrencies.append(currency)
                     }
-                } catch {
-                    print("Couldn't fetch symbols. \(error.localizedDescription)")
+                    self.allCurrencies.sort { $0.name < $1.name }
+                    print("Current Currency List: \(self.allCurrencies)")
                 }
+            } catch {
+                print("Couldn't fetch symbols. \(error.localizedDescription)")
             }
         }
+    }
     
     
 }

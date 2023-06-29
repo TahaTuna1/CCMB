@@ -13,6 +13,7 @@ struct InfoView: View{
     var body: some View{
         Text("Last Update \(date.formatted())")
             .font(.footnote)
-            .opacity(0.3)
+            .foregroundColor(.black)
+            .opacity(0.8)
     }
 }

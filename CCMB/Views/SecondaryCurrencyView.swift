@@ -51,3 +51,4 @@ struct SecondaryCurrencyView: View{
         .animation(.easeOut, value: 3)
     }
 }
+

@@ -27,5 +27,5 @@ struct AppTheme: Equatable {
     
     func toggleTheme() -> AppTheme {
             return (self == AppTheme.theme1) ? AppTheme.theme2 : AppTheme.theme1
-        }
+    }
 }
