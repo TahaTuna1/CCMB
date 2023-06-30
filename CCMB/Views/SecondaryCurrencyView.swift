@@ -2,7 +2,7 @@
 //  SecondaryCurrencyView.swift
 //  CCMB
 //
-//  Created by Taha Tuna on 24.04.2023.
+//  Created by Taha Tuna
 //
 
 import SwiftUI
@@ -32,7 +32,7 @@ struct SecondaryCurrencyView: View{
                 
                 name = value
                 viewModel.currencyChanged = true
-               isShowingList = false
+                isShowingList = false
                 
             }
             .onAppear{
@@ -44,11 +44,8 @@ struct SecondaryCurrencyView: View{
             Text(String(format: "%.2f", amount))
                 .minimumScaleFactor(0.5)
                 .padding(5)
-                //MARK: Broken pls fix .blur(radius: name == selectedItem ? 2 : 0)
         }
         .frame(height: 35)
-        .cornerRadius(5)
-        .animation(.easeOut, value: 3)
     }
 }
 

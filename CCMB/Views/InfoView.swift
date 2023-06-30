@@ -2,12 +2,12 @@
 //  InfoView.swift
 //  CCMB
 //
-//  Created by Taha Tuna on 24.04.2023.
+//  Created by Taha Tuna
 //
 
 import SwiftUI
 
-
+//Last Update Popover view
 struct InfoView: View{
     var date: Date
     var body: some View{

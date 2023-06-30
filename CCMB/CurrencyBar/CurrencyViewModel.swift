@@ -2,42 +2,54 @@
 //  CurrencyViewModel.swift
 //  CCMB
 //
-//  Created by Taha Tuna on 21.04.2023.
+//  Created by Taha Tuna
 //
 
 import Combine
 import SwiftUI
 
 class CurrencyViewModel: ObservableObject{
+    
     @Published var currencyData: CurrencyData?
     @Published var isLoading = false
     @Published var allCurrencies: [AllCurrencies] = []
     @Published var currencyChanged: Bool = true
     
+    private var cancellable = Set<AnyCancellable>()
     
-    private var cancellables = Set<AnyCancellable>()
-    
+    //Currencies
     @Published var baseCurrency: Currency {
-            didSet {
-                UserDefaults.standard.set(baseCurrency.name, forKey: "baseCurrencyName")
-            }
+        didSet {
+            UserDefaults.standard.set(baseCurrency.name, forKey: "baseCurrencyName")
         }
-    
+    }
+    //MARK: Second - Third - Fourth Currencies
     @Published var secondCurrency: Currency {
         didSet {
+            guard secondCurrency.name != oldValue.name else { return }
             UserDefaults.standard.set(secondCurrency.name, forKey: "secondCurrencyName")
+            updateCurrencyData()
         }
     }
-    
     @Published var thirdCurrency: Currency {
         didSet {
+            guard thirdCurrency.name != oldValue.name else { return }
             UserDefaults.standard.set(thirdCurrency.name, forKey: "thirdCurrencyName")
+            updateCurrencyData()
+        }
+    }
+    @Published var fourthCurrency: Currency {
+        didSet {
+            guard fourthCurrency.name != oldValue.name else { return }
+            UserDefaults.standard.set(fourthCurrency.name, forKey: "fourthCurrencyName")
+            updateCurrencyData()
         }
     }
     
-    @Published var fourthCurrency: Currency {
+    //Theme Variable
+    @Published var currentTheme: AppTheme = AppTheme.theme1 {
         didSet {
-            UserDefaults.standard.set(fourthCurrency.name, forKey: "fourthCurrencyName")
+            saveCurrentTheme()
         }
     }
     
@@ -53,15 +65,16 @@ class CurrencyViewModel: ObservableObject{
         
         let fourthName = UserDefaults.standard.string(forKey: "fourthCurrencyName") ?? "RUB"
         fourthCurrency = Currency(name: fourthName, amount: 0.0)
+        
+        //Get saved theme from UserDefaults
+        self.loadCurrentTheme()
     }
     
     // Last Update
     @Published var lastUpdate: Date = .distantPast
     
-    
-    // MARK: Fetch the Currency data from the API
-    func fetchCurrencyData(currencies: [String]) {
-        
+    //MARK: Fetch Currency Data from API
+    func fetchCurrencyData() {
         // Last update check
         let currentTime = Date()
         let timeDifference = Calendar.current.dateComponents([.hour], from: lastUpdate, to: currentTime).hour ?? 0
@@ -72,14 +85,9 @@ class CurrencyViewModel: ObservableObject{
             return
         }
         
-        let finalCurrencies = currencies.joined(separator: "%2C")
-        print(finalCurrencies)
-        
-        guard let url = URL(string: "https://api.freecurrencyapi.com/v1/latest?apikey=\(apiKey)&currencies=\(finalCurrencies)&base_currency=\(baseCurrency.name)") else {
+        guard let url = URL(string: "https://api.freecurrencyapi.com/v1/latest?apikey=\(apiKey)&currencies=&base_currency=\(baseCurrency.name)") else {
             fatalError("Invalid URL")
         }
-        print(url)
-        
         
         self.isLoading = true
         URLSession.shared.dataTaskPublisher(for: url)
@@ -91,38 +99,35 @@ class CurrencyViewModel: ObservableObject{
             }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] fetchedData in
-                
                 print("Network Call made.")
                 self?.currencyData = fetchedData
                 print(self?.currencyData ?? "failed to print currencyData")
                 self?.lastUpdate = Date()
                 self?.updateCurrencyData()
                 self?.currencyChanged = false
-                
             }
-            .store(in: &cancellables)
-    }
-    //MARK: Updating Currency Data
-    private func updateCurrencyData() {
-        func updateCurrencyAmount(for currency: inout Currency, with data: [String: Double], using currencyCodes: [String]) {
-            if let index = currencyCodes.firstIndex(where: { $0 == currency.name }) {
-                currency.amount = data[currencyCodes[index]]!
-            }
-        }
-        print(self.lastUpdate)
-        if let data = currencyData?.data {
-            let currencyCodes = Array(data.keys)
-            
-            updateCurrencyAmount(for: &secondCurrency, with: data, using: currencyCodes)
-            updateCurrencyAmount(for: &thirdCurrency, with: data, using: currencyCodes)
-            updateCurrencyAmount(for: &fourthCurrency, with: data, using: currencyCodes)
-            
-            print("\(secondCurrency), \(thirdCurrency), \(fourthCurrency)")
-            self.isLoading = false
-        }
+            .store(in: &cancellable)
     }
     
-    //MARK: Fetch Symbols and Codes from Local JSON
+    //MARK: Update Currency Data
+    private func updateCurrencyData() {
+        func updateCurrencyAmount(for currency: inout Currency) {
+            if let rate = currencyData?.data[currency.name], rate != currency.amount {
+                currency.amount = rate
+            }
+        }
+        
+        print("Updated. Last Network Call: \(self.lastUpdate.formatted())")
+        
+        updateCurrencyAmount(for: &secondCurrency)
+        updateCurrencyAmount(for: &thirdCurrency)
+        updateCurrencyAmount(for: &fourthCurrency)
+        
+        print("\(secondCurrency), \(thirdCurrency), \(fourthCurrency)")
+        self.isLoading = false
+    }
+    
+    //MARK: Fetch Symbols and Codes from Local JSON on launch
     func fetchSymbols() {
         if let url = Bundle.main.url(forResource: "CurrencyList", withExtension: "json") {
             do {
@@ -145,5 +150,21 @@ class CurrencyViewModel: ObservableObject{
         }
     }
     
+    //MARK: Save theme on change to UserDefaults
+    func saveCurrentTheme() {
+        UserDefaults.standard.set(currentTheme.themeKey.rawValue, forKey: "currentThemeKey")
+    }
     
+    //MARK: Load current theme from UserDefaults
+    func loadCurrentTheme() {
+        if let savedThemeKey = UserDefaults.standard.string(forKey: "currentThemeKey"), let themeKey = ThemeKey(rawValue: savedThemeKey) {
+            switch themeKey {
+            case .theme1:
+                currentTheme = AppTheme.theme1
+            case .theme2:
+                currentTheme = AppTheme.theme2
+            }
+        }
+        // else keep the default theme (AppTheme.theme1)
+    }
 }

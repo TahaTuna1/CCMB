@@ -2,7 +2,7 @@
 //  CCMBApp.swift
 //  CCMB
 //
-//  Created by Taha Tuna on 21.04.2023.
+//  Created by Taha Tuna
 //
 
 import SwiftUI
@@ -18,7 +18,6 @@ struct CCMBApp: App {
             Image(systemName: "dollarsign.circle")
         }
         .menuBarExtraStyle(.window)
-        
         
         // MARK: Menu Bar Style
         // 1. Menu (List Type)

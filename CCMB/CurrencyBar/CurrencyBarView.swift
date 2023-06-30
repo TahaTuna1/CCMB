@@ -2,33 +2,28 @@
 //  ContentView.swift
 //  CCMB
 //
-//  Created by Taha Tuna on 21.04.2023.
+//  Created by Taha Tuna
 //
 
 import SwiftUI
 
 struct CurrencyBarView: View {
     
-    @State var currentTheme: AppTheme = AppTheme.theme1
-    
     @ObservedObject var viewModel = CurrencyViewModel()
     @State private var enteredAmount: Double = 1.0
     @State var infoTabShowing: Bool = false
     
     @State private var selectedItem = ""
-    @State var isShowingList: Bool = false
     
-    @State var isShowingList2: Bool = false// Not the best solution, is it?
+    //Lists - Consider changing and adding some search method
+    @State var isShowingList: Bool = false
+    @State var isShowingList2: Bool = false
     @State var isShowingList3: Bool = false
     @State var isShowingList4: Bool = false
     
     @State private var selectedItem2 = "" // I hate it
     @State private var selectedItem3 = ""
     @State private var selectedItem4 = ""
-    
-    @State private var animationAmount = 1.0
-    
-    
     
     var body: some View {
         
@@ -42,46 +37,44 @@ struct CurrencyBarView: View {
                     HStack {
                         Text(viewModel.baseCurrency.name)
                             .padding(.leading, 5)
-                            .foregroundColor(currentTheme.mainText)
+                            .foregroundColor(viewModel.currentTheme.mainText)
                         Image(systemName: "chevron.down")
                             .font(.caption)
-                            .foregroundColor(currentTheme.mainText)
+                            .foregroundColor(viewModel.currentTheme.mainText)
                     }
                     .onTapGesture {
                         isShowingList = true
-                    }//MARK: Popover List
+                    }
                     .popover(isPresented: $isShowingList, arrowEdge: .bottom) {
-                        
+                        //MARK: Popover List
                         ListView(viewModel: viewModel, selectedItem: $selectedItem)
                         
-                    }// ON CHANGE
+                    }
                     .onChange(of: selectedItem) { value in
+                        // ON CHANGE
                         viewModel.baseCurrency.name = value
                         viewModel.currencyChanged = true
                         
                         if viewModel.currencyChanged{
-                            viewModel.fetchCurrencyData(
-                                currencies: [viewModel.secondCurrency.name,
-                                             viewModel.thirdCurrency.name,
-                                             viewModel.fourthCurrency.name])
+                            viewModel.fetchCurrencyData()
                             isShowingList = false
                         }
                     }
-                    // Fetch symbols from local JSON on launch
                     .onAppear{
+                        // Fetch symbols from local JSON on launch
                         viewModel.fetchSymbols()
                     }
                     
                     Spacer()
                     
                     TextField("Enter Amount", value: $enteredAmount, format: .number)
-                        .foregroundColor(currentTheme.mainText)
+                        .foregroundColor(viewModel.currentTheme.mainText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.trailing)
                         .padding(5)
                 }
                 .frame(height: 50)
-                .background(currentTheme.mainBackground)
+                .background(viewModel.currentTheme.mainBackground)
                 
                 
                 // 2nd 3rd 4th Currencies
@@ -110,30 +103,22 @@ struct CurrencyBarView: View {
                 .blur(radius: viewModel.isLoading ? 2 : 0)
                 
                 
-                
-                
-                
                 //MARK: Buttons
-                HStack {
-                    Spacer()
-                    //MARK: REFRESH Button
+                HStack(alignment: .center, spacing: 25) {
                     
+                    //MARK: REFRESH Button
                     Button {
                         // Get all the current currency names and fetch the data
-                        viewModel.fetchCurrencyData(
-                            currencies: [viewModel.secondCurrency.name,
-                                         viewModel.thirdCurrency.name,
-                                         viewModel.fourthCurrency.name])
+                        viewModel.fetchCurrencyData()
                     } label: {
                         Image(systemName: "dollarsign.arrow.circlepath")
                             .frame(width: 20)
                             .font(.title2)
-                            .foregroundColor(viewModel.currencyChanged ? .green : .white)
-                        
+                            .foregroundColor(
+                                viewModel.currencyChanged ?
+                                    .green : viewModel.currentTheme.mainBackground
+                            )
                     }
-                    
-                    
-                    Spacer()
                     
                     //MARK: INFO Button
                     Button {
@@ -150,20 +135,16 @@ struct CurrencyBarView: View {
                             .frame(width: 170, height: 50, alignment: .center)
                     }
                     
-                    Spacer()
-                    
                     //MARK: Theme Toggle Button
-                    Image(systemName: "eye.circle")
-                        .font(.title3)
-                        .onTapGesture {
-                            withAnimation {
-                                currentTheme = currentTheme.toggleTheme()
-                            }
+                    Button {
+                        withAnimation {
+                            viewModel.currentTheme = viewModel.currentTheme.toggleTheme()
                         }
-                    
-                    
-                    Spacer()
-                    
+                    } label: {
+                        Image(systemName: "eye.circle")
+                            .font(.title3)
+                    }
+
                     
                     //MARK: QUIT Button
                     Button {
@@ -173,26 +154,19 @@ struct CurrencyBarView: View {
                         Image(systemName: "power.circle")
                             .frame(width: 20)
                             .font(.title2)
-                            .foregroundColor(currentTheme.text)
+                            .foregroundColor(viewModel.currentTheme.text)
                     }
-                    
-                    Spacer()
-                    
                 }
                 .frame(height: 40)
                 .buttonStyle(.borderless)
             }
             .frame(width: 180)
-            .background(currentTheme.background)
-            .foregroundColor(currentTheme.text)
-            
-            
-        }.preferredColorScheme(.light)
-        
-        
+            .background(viewModel.currentTheme.background)
+            .foregroundColor(viewModel.currentTheme.text)
+        }
+        .preferredColorScheme(.light)
     }
 }
-
 
 
 struct ContentView_Previews: PreviewProvider {
