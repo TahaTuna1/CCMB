@@ -8,12 +8,17 @@
 import Foundation
 
 struct CurrencyData: Codable {
-    let data: [String: Double]
+    let meta: Meta
+    let data: [String: Currency]
+    
+    struct Meta: Codable {
+        let last_updated_at: String
+    }
 }
 
-struct Currency {
-    var name: String
-    var amount: Double
+struct Currency: Codable {
+    var code: String
+    var value: Double
 }
 
 struct AllCurrencies: Codable {

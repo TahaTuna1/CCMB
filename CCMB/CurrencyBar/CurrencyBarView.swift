@@ -35,7 +35,7 @@ struct CurrencyBarView: View {
             VStack{
                 HStack{  //MARK: Main
                     HStack {
-                        Text(viewModel.baseCurrency.name)
+                        Text(viewModel.baseCurrency.code)
                             .padding(.leading, 5)
                             .foregroundColor(viewModel.currentTheme.mainText)
                         Image(systemName: "chevron.down")
@@ -52,7 +52,7 @@ struct CurrencyBarView: View {
                     }
                     .onChange(of: selectedItem) { value in
                         // ON CHANGE
-                        viewModel.baseCurrency.name = value
+                        viewModel.baseCurrency.code = value
                         viewModel.currencyChanged = true
                         
                         if viewModel.currencyChanged{
@@ -79,24 +79,24 @@ struct CurrencyBarView: View {
                 
                 // 2nd 3rd 4th Currencies
                 SecondaryCurrencyView(
-                    name: $viewModel.secondCurrency.name,
-                    amount: enteredAmount * viewModel.secondCurrency.amount,
+                    name: $viewModel.secondCurrency.code,
+                    amount: enteredAmount * viewModel.secondCurrency.value,
                     isShowingList: $isShowingList2,
                     viewModel: viewModel,
                     selectedItem: $selectedItem2)
                 .blur(radius: viewModel.isLoading ? 2 : 0)
                 
                 SecondaryCurrencyView(
-                    name: $viewModel.thirdCurrency.name,
-                    amount: enteredAmount * viewModel.thirdCurrency.amount,
+                    name: $viewModel.thirdCurrency.code,
+                    amount: enteredAmount * viewModel.thirdCurrency.value,
                     isShowingList: $isShowingList3,
                     viewModel: viewModel,
                     selectedItem: $selectedItem3)
                 .blur(radius: viewModel.isLoading ? 2 : 0)
                 
                 SecondaryCurrencyView(
-                    name: $viewModel.fourthCurrency.name,
-                    amount: enteredAmount * viewModel.fourthCurrency.amount,
+                    name: $viewModel.fourthCurrency.code,
+                    amount: enteredAmount * viewModel.fourthCurrency.value,
                     isShowingList: $isShowingList4,
                     viewModel: viewModel,
                     selectedItem: $selectedItem4)

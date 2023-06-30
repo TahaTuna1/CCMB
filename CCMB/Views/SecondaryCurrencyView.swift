@@ -35,9 +35,6 @@ struct SecondaryCurrencyView: View{
                 isShowingList = false
                 
             }
-            .onAppear{
-                viewModel.fetchSymbols()
-            }
             
             Spacer()
             

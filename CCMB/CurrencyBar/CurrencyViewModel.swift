@@ -5,6 +5,13 @@
 //  Created by Taha Tuna
 //
 
+
+
+//TODO: Things to work on
+//
+//When the Value is too low, it displays as 0. For exmaple, 1 euro is 0.00 BTC but it should be 0.000036
+// How do you approach this?
+
 import Combine
 import SwiftUI
 
@@ -20,28 +27,28 @@ class CurrencyViewModel: ObservableObject{
     //Currencies
     @Published var baseCurrency: Currency {
         didSet {
-            UserDefaults.standard.set(baseCurrency.name, forKey: "baseCurrencyName")
+            UserDefaults.standard.set(baseCurrency.code, forKey: "baseCurrencyName")
         }
     }
     //MARK: Second - Third - Fourth Currencies
     @Published var secondCurrency: Currency {
         didSet {
-            guard secondCurrency.name != oldValue.name else { return }
-            UserDefaults.standard.set(secondCurrency.name, forKey: "secondCurrencyName")
+            guard secondCurrency.code != oldValue.code else { return }
+            UserDefaults.standard.set(secondCurrency.code, forKey: "secondCurrencyName")
             updateCurrencyData()
         }
     }
     @Published var thirdCurrency: Currency {
         didSet {
-            guard thirdCurrency.name != oldValue.name else { return }
-            UserDefaults.standard.set(thirdCurrency.name, forKey: "thirdCurrencyName")
+            guard thirdCurrency.code != oldValue.code else { return }
+            UserDefaults.standard.set(thirdCurrency.code, forKey: "thirdCurrencyName")
             updateCurrencyData()
         }
     }
     @Published var fourthCurrency: Currency {
         didSet {
-            guard fourthCurrency.name != oldValue.name else { return }
-            UserDefaults.standard.set(fourthCurrency.name, forKey: "fourthCurrencyName")
+            guard fourthCurrency.code != oldValue.code else { return }
+            UserDefaults.standard.set(fourthCurrency.code, forKey: "fourthCurrencyName")
             updateCurrencyData()
         }
     }
@@ -55,16 +62,16 @@ class CurrencyViewModel: ObservableObject{
     
     init() {
         let baseName = UserDefaults.standard.string(forKey: "baseCurrencyName") ?? "EUR"
-        baseCurrency = Currency(name: baseName, amount: 0.0)
+        baseCurrency = Currency(code: baseName, value: 0.0)
         
         let secondName = UserDefaults.standard.string(forKey: "secondCurrencyName") ?? "USD"
-        secondCurrency = Currency(name: secondName, amount: 0.0)
+        secondCurrency = Currency(code: secondName, value: 0.0)
         
         let thirdName = UserDefaults.standard.string(forKey: "thirdCurrencyName") ?? "TRY"
-        thirdCurrency = Currency(name: thirdName, amount: 0.0)
+        thirdCurrency = Currency(code: thirdName, value: 0.0)
         
         let fourthName = UserDefaults.standard.string(forKey: "fourthCurrencyName") ?? "RUB"
-        fourthCurrency = Currency(name: fourthName, amount: 0.0)
+        fourthCurrency = Currency(code: fourthName, value: 0.0)
         
         //Get saved theme from UserDefaults
         self.loadCurrentTheme()
@@ -84,10 +91,14 @@ class CurrencyViewModel: ObservableObject{
             print("No new network call. Currency Values updated.")
             return
         }
-        
-        guard let url = URL(string: "https://api.freecurrencyapi.com/v1/latest?apikey=\(apiKey)&currencies=&base_currency=\(baseCurrency.name)") else {
+        //MARK: API URL
+        guard let url =
+                URL(string: "https://api.currencyapi.com/v3/latest?apikey=\(apiKey)&currencies=&base_currency=\(baseCurrency.code)")
+        else {
             fatalError("Invalid URL")
         }
+        
+        print(url)
         
         self.isLoading = true
         URLSession.shared.dataTaskPublisher(for: url)
@@ -112,10 +123,14 @@ class CurrencyViewModel: ObservableObject{
     //MARK: Update Currency Data
     private func updateCurrencyData() {
         func updateCurrencyAmount(for currency: inout Currency) {
-            if let rate = currencyData?.data[currency.name], rate != currency.amount {
-                currency.amount = rate
+            if let currencyInfo = currencyData?.data[currency.code] {
+                let rate = currencyInfo.value
+                if rate != currency.value {
+                    currency.value = rate
+                }
             }
         }
+        
         
         print("Updated. Last Network Call: \(self.lastUpdate.formatted())")
         
