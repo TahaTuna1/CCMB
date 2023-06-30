@@ -6,11 +6,10 @@
 //
 
 
-
 //TODO: Things to work on
 //
-//When the Value is too low, it displays as 0. For exmaple, 1 euro is 0.00 BTC but it should be 0.000036
-// How do you approach this?
+// When the Value is too low, it displays as 0. For example, 1 euro is 0.00 BTC but it should be 0.000036
+//
 
 import Combine
 import SwiftUI
@@ -112,7 +111,6 @@ class CurrencyViewModel: ObservableObject{
             .sink { [weak self] fetchedData in
                 print("Network Call made.")
                 self?.currencyData = fetchedData
-                print(self?.currencyData ?? "failed to print currencyData")
                 self?.lastUpdate = Date()
                 self?.updateCurrencyData()
                 self?.currencyChanged = false
@@ -149,15 +147,13 @@ class CurrencyViewModel: ObservableObject{
                 let data = try Data(contentsOf: url)
                 let response = try JSONDecoder().decode(CurrencyList.self, from: data)
                 
-                
-                
                 DispatchQueue.main.async {
                     self.allCurrencies.removeAll()
                     for currency in response.data.values {
                         self.allCurrencies.append(currency)
                     }
                     self.allCurrencies.sort { $0.name < $1.name }
-                    print("Current Currency List: \(self.allCurrencies)")
+                    print("Currency List Fetched.")
                 }
             } catch {
                 print("Couldn't fetch symbols. \(error.localizedDescription)")
