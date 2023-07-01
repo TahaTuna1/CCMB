@@ -31,7 +31,6 @@ struct SecondaryCurrencyView: View{
             .onChange(of: selectedItem) { value in
                 
                 name = value
-                viewModel.currencyChanged = true
                 isShowingList = false
                 
             }

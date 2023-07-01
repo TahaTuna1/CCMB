@@ -120,11 +120,6 @@
             "symbol_native": "Br",
             "code": "BYN"
         },
-        "BYR": {
-            "name": "Belarusian Ruble",
-            "symbol_native": "BYR",
-            "code": "BYR"
-        },
         "BZD": {
             "name": "Belize Dollar",
             "symbol_native": "$",
@@ -161,7 +156,7 @@
             "code": "CNY"
         },
         "COP": {
-            "name": "Coombian Peso",
+            "name": "Colombian Peso",
             "symbol_native": "$",
             "code": "COP"
         },
@@ -186,7 +181,7 @@
             "code": "CVE"
         },
         "CZK": {
-            "name": "Czech Republic Koruna",
+            "name": "Czech Koruna",
             "symbol_native": "K\u010d",
             "code": "CZK"
         },
