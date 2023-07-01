@@ -13,13 +13,15 @@ struct CCMBApp: App {
     var viewModel = CurrencyViewModel()
     
     var body: some Scene {
-        // Can also add a window group.
         
+        
+        
+        //Paywall
         WindowGroup {
-            PaywallView()
-                .environmentObject(viewModel)
-                .frame(width: 900)
-                .fixedSize()
+                PaywallView()
+                    .environmentObject(viewModel)
+                    .frame(width: 900)
+                    .fixedSize()
         }
         .windowResizability(.contentSize)
         .windowStyle(.hiddenTitleBar)

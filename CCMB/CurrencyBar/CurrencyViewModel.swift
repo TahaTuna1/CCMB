@@ -8,8 +8,9 @@
 
 //TODO: Things to work on
 //
-// When the Value is too low, it displays as 0. For example, 1 euro is 0.00 BTC but it should be 0.000036
+// When the Value is too low, it displays as 0. For example, 1 euro is 0.00 BTC but it should be 0.000036. Consider addressing
 //
+// Need to control the paywall window from here.
 
 import Combine
 import SwiftUI
@@ -62,10 +63,11 @@ class CurrencyViewModel: ObservableObject{
     
     //Paywall
     
-    @Published var isSubscribed = true
-    @Published var togglePaywall = false
+    @Published var isSubscribed = false
+    @Published var isPaywallActive = false
     
     init() {
+        
         let baseName = UserDefaults.standard.string(forKey: "baseCurrencyName") ?? "EUR"
         baseCurrency = Currency(code: baseName, value: 0.0)
         
@@ -80,6 +82,7 @@ class CurrencyViewModel: ObservableObject{
         
         //Get saved theme from UserDefaults
         self.loadCurrentTheme()
+        self.fetchSymbols()
     }
     
     // Last Update

@@ -62,10 +62,6 @@ struct CurrencyBarView: View {
                             isShowingList = false
                         }
                     }
-                    .onAppear{
-                        // Fetch symbols from local JSON on launch
-                        viewModel.fetchSymbols()
-                    }
                     
                     Spacer()
                     
@@ -112,7 +108,7 @@ struct CurrencyBarView: View {
                     Button {
                         // Get all the current currency names and fetch the data
                         if !viewModel.isSubscribed{
-                            viewModel.togglePaywall.toggle()
+                            viewModel.isPaywallActive.toggle()
                         }else{
                             viewModel.fetchCurrencyData()
                         }
