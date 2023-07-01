@@ -59,72 +59,126 @@ struct PaywallView: View {
                     .padding(10)
                 
                 HStack{
-                    VStack{
-                        Text("Weekly")
-                            .font(.title2)
-                            .padding(5)
-                        HStack{
-                            Image(systemName: "checkmark.circle")
-                            Text("1 Day Free Trial")
+                    ZStack {
+                        VStack{
+                            Text("Weekly")
+                                .font(.title2)
+                                .padding(5)
+                            HStack{
+                                Image(systemName: "checkmark.circle")
+                                Text("1 Day Free Trial")
+                            }
+                            HStack{
+                                Image(systemName: "checkmark.circle")
+                                Text("$2.99 / Week")
+                            }
+                            Text("Billed weekly")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                                .padding(2)
                         }
-                        HStack{
-                            Image(systemName: "checkmark.circle")
-                            Text("$2.99 / Week")
+                        .frame(width: 150, height: 100)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                        .background(AppTheme.theme2.mainBackground)
+                        .onTapGesture {
+                            withAnimation {
+                                isWeeklySelected = true
+                                isMonthlySelected = false
+                                isAnnuallySelected = false
+                                
+                            }
                         }
-                        Text("Billed weekly")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                            .padding(2)
+                        
+                        if isWeeklySelected{
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.largeTitle)
+                                .fontWeight(.light)
+                                .offset(x: 60, y: -35)
+                            
+                        }
                     }
-                    .frame(width: 150, height: 100)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.black, lineWidth: 1)
-                    )
-                    VStack{
-                        Text("Monthly")
-                            .font(.title2)
-                            .padding(5)
-                        HStack{
-                            Image(systemName: "checkmark.circle")
-                            Text("3 Day Free Trial")
+                    
+                    ZStack {
+                        VStack{
+                            Text("Monthly")
+                                .font(.title2)
+                                .padding(5)
+                            HStack{
+                                Image(systemName: "checkmark.circle")
+                                Text("3 Day Free Trial")
+                            }
+                            HStack{
+                                Image(systemName: "checkmark.circle")
+                                Text("$9.99 / Month")
+                            }
+                            Text("Billed monthly")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                                .padding(2)
                         }
-                        HStack{
-                            Image(systemName: "checkmark.circle")
-                            Text("$9.99 / Month")
+                        .frame(width: 150, height: 100)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                        .background(AppTheme.theme2.mainBackground)
+                        .onTapGesture {
+                            withAnimation {
+                                isWeeklySelected = false
+                                isMonthlySelected = true
+                                isAnnuallySelected = false
+                            }
                         }
-                        Text("Billed monthly")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                            .padding(2)
+                        if isMonthlySelected{
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.largeTitle)
+                                .fontWeight(.light)
+                                .offset(x: 60, y: -35)
+                            
+                        }
                     }
-                    .frame(width: 150, height: 100)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.black, lineWidth: 1)
-                    )
-                    VStack{
-                        Text("Annually")
-                            .font(.title2)
-                            .padding(5)
-                        HStack{
-                            Image(systemName: "checkmark.circle")
-                            Text("7 Day Free Trial")
+                    ZStack {
+                        VStack{
+                            Text("Annually")
+                                .font(.title2)
+                                .padding(5)
+                            HStack{
+                                Image(systemName: "checkmark.circle")
+                                Text("7 Day Free Trial")
+                            }
+                            HStack{
+                                Image(systemName: "checkmark.circle")
+                                Text("$7.99 / Month")
+                            }
+                            Text("Billed annually")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                                .padding(2)
                         }
-                        HStack{
-                            Image(systemName: "checkmark.circle")
-                            Text("$7.99 / Month")
+                        .frame(width: 150, height: 100)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                        .background(AppTheme.theme2.mainBackground)
+                        .onTapGesture {
+                            withAnimation{
+                                isWeeklySelected = false
+                                isMonthlySelected = false
+                                isAnnuallySelected = true
+                            }
                         }
-                        Text("Billed annually")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                            .padding(2)
+                        if isAnnuallySelected{
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.largeTitle)
+                                .fontWeight(.light)
+                                .offset(x: 60, y: -35)
+                            
+                        }
                     }
-                    .frame(width: 150, height: 100)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.black, lineWidth: 1)
-                    )
                     
                 }
                 .padding(10)
@@ -146,17 +200,17 @@ struct PaywallView: View {
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.trailing, 20)
-                        
+                    
                     Text("Skip Offer")
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.trailing, 20)
-                        
+                    
                     Text("Privacy Policy")
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.trailing, 20)
-                        
+                    
                 }
             }
             .padding(.trailing, 20)

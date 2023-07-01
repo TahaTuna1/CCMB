@@ -12,7 +12,8 @@ struct SecondaryCurrencyView: View{
     @Binding var name: String
     var amount: Double
     @Binding var isShowingList: Bool
-    @ObservedObject var viewModel: CurrencyViewModel
+    @EnvironmentObject var viewModel: CurrencyViewModel
+    
     @Binding var selectedItem: String
     
     var body: some View{
@@ -23,7 +24,8 @@ struct SecondaryCurrencyView: View{
                 Image(systemName: "chevron.down").font(.caption)
             }
             .popover(isPresented: $isShowingList, arrowEdge: .bottom) {
-                ListView(viewModel: viewModel, selectedItem: $selectedItem)
+                ListView(selectedItem: $selectedItem)
+                    .environmentObject(viewModel)
             }
             .onTapGesture {
                 isShowingList = true

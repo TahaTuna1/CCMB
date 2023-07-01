@@ -59,6 +59,12 @@ class CurrencyViewModel: ObservableObject{
         }
     }
     
+    
+    //Paywall
+    
+    @Published var isSubscribed = true
+    @Published var togglePaywall = false
+    
     init() {
         let baseName = UserDefaults.standard.string(forKey: "baseCurrencyName") ?? "EUR"
         baseCurrency = Currency(code: baseName, value: 0.0)

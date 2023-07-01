@@ -9,11 +9,26 @@ import SwiftUI
 
 @main
 struct CCMBApp: App {
+    
+    var viewModel = CurrencyViewModel()
+    
     var body: some Scene {
         // Can also add a window group.
+        
+        WindowGroup {
+            PaywallView()
+                .environmentObject(viewModel)
+                .frame(width: 900)
+                .fixedSize()
+        }
+        .windowResizability(.contentSize)
+        .windowStyle(.hiddenTitleBar)
+        
+        
         MenuBarExtra{
             CurrencyBarView()
-
+                .environmentObject(viewModel)
+            
         }label: {
             Image(systemName: "dollarsign.circle")
         }
@@ -22,5 +37,8 @@ struct CCMBApp: App {
         // MARK: Menu Bar Style
         // 1. Menu (List Type)
         // 2. Window (View Type)
+        
+        
     }
 }
+

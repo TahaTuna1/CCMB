@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListView: View{
-    @ObservedObject var viewModel: CurrencyViewModel
+    @EnvironmentObject var viewModel: CurrencyViewModel
     @Binding var selectedItem: String
     
     var body: some View{

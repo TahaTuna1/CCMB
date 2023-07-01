@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CurrencyBarView: View {
     
-    @ObservedObject var viewModel = CurrencyViewModel()
+    @EnvironmentObject var viewModel: CurrencyViewModel
+    
     @State private var enteredAmount: Double = 1.0
     @State var infoTabShowing: Bool = false
     
@@ -24,6 +25,7 @@ struct CurrencyBarView: View {
     @State private var selectedItem2 = "" // I hate it
     @State private var selectedItem3 = ""
     @State private var selectedItem4 = ""
+    
     
     var body: some View {
         
@@ -47,7 +49,7 @@ struct CurrencyBarView: View {
                     }
                     .popover(isPresented: $isShowingList, arrowEdge: .bottom) {
                         //MARK: Popover List
-                        ListView(viewModel: viewModel, selectedItem: $selectedItem)
+                        ListView(selectedItem: $selectedItem)
                         
                     }
                     .onChange(of: selectedItem) { value in
@@ -82,25 +84,25 @@ struct CurrencyBarView: View {
                     name: $viewModel.secondCurrency.code,
                     amount: enteredAmount * viewModel.secondCurrency.value,
                     isShowingList: $isShowingList2,
-                    viewModel: viewModel,
                     selectedItem: $selectedItem2)
                 .blur(radius: viewModel.isLoading ? 2 : 0)
+                .environmentObject(viewModel)
                 
                 SecondaryCurrencyView(
                     name: $viewModel.thirdCurrency.code,
                     amount: enteredAmount * viewModel.thirdCurrency.value,
                     isShowingList: $isShowingList3,
-                    viewModel: viewModel,
                     selectedItem: $selectedItem3)
                 .blur(radius: viewModel.isLoading ? 2 : 0)
+                .environmentObject(viewModel)
                 
                 SecondaryCurrencyView(
                     name: $viewModel.fourthCurrency.code,
                     amount: enteredAmount * viewModel.fourthCurrency.value,
                     isShowingList: $isShowingList4,
-                    viewModel: viewModel,
                     selectedItem: $selectedItem4)
                 .blur(radius: viewModel.isLoading ? 2 : 0)
+                .environmentObject(viewModel)
                 
                 
                 //MARK: Buttons
@@ -109,7 +111,11 @@ struct CurrencyBarView: View {
                     //MARK: REFRESH Button
                     Button {
                         // Get all the current currency names and fetch the data
-                        viewModel.fetchCurrencyData()
+                        if !viewModel.isSubscribed{
+                            viewModel.togglePaywall.toggle()
+                        }else{
+                            viewModel.fetchCurrencyData()
+                        }
                     } label: {
                         Image(systemName: "dollarsign.arrow.circlepath")
                             .frame(width: 20)
@@ -144,7 +150,7 @@ struct CurrencyBarView: View {
                         Image(systemName: "eye.circle")
                             .font(.title3)
                     }
-
+                    
                     
                     //MARK: QUIT Button
                     Button {
